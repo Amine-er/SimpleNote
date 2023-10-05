@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,6 +24,8 @@ public class Note {
     private Boolean isArchived ;
     @ManyToOne(cascade = CascadeType.ALL)
     private User user ;
+    @OneToMany(mappedBy = "note", fetch = FetchType.LAZY)
+    private List<Reminder> reminders;
     @Version
     protected Long version;
 }
