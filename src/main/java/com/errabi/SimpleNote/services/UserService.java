@@ -42,7 +42,6 @@ public class UserService {
 
        return dto ;
     }
-
     public UserDto findById(Long id){
       Optional<User> optionalUser =  userRepository.findById(id);
       if(optionalUser.isPresent()){
@@ -52,4 +51,5 @@ public class UserService {
           throw new RuntimeException("User not found");
       }
     }
+
 }
