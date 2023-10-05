@@ -18,28 +18,10 @@ public class UserService {
     private final UserRepository userRepository ;
     private final UserMapper userMapper ;
     public UserDto save(UserDto dto){
-
-        /*User user = new User();
-        user.setId(dto.getId());
-        user.setEmail(dto.getEmail());
-        user.setUsername(dto.getUsername());
-        user.setPassword(dto.getPassword());
-
-
-        List<Note> notes = new ArrayList<>() ;
-
-        dto.getNotes().forEach(noteDto->{
-            Note note = new Note();
-            note.setTitle(noteDto.getTitle());
-            note.setContent(noteDto.getContent());
-
-            notes.add(note);
-        });
-
-        user.setNotes(notes); */
+        // check if the username already exist
+        // throw exception if the user already exist
         User user = userMapper.toEntity(dto);
         userRepository.save(user);
-
        return dto ;
     }
     public UserDto findById(Long id){
@@ -51,5 +33,20 @@ public class UserService {
           throw new RuntimeException("User not found");
       }
     }
-
+    public List<UserDto> findAll(){
+        List<UserDto> users = new ArrayList<>();
+       userRepository.findAll().forEach(element->{
+           users.add(userMapper.toDto(element));
+       });
+       // for loop
+       /*List<User> list = userRepository.findAll() ;
+       for(int i = 0;i<list.size();i++){
+           users.add(userMapper.toDto(list.get(i)));
+       }*/
+       // java 8 stream functional programming and lambda expression OCP
+      /*List<UserDto> userDtos =   userRepository.findAll().stream()
+                                                          .map(e->userMapper.toDto(e))
+                                                          .collect(Collectors.toList());*/
+       return users ;
+    }
 }
