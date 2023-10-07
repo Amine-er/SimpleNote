@@ -16,6 +16,7 @@ public class UserController {
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
         return new ResponseEntity(userService.findById(id), HttpStatus.OK);
     }
+
     @PostMapping("/users")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
          return new ResponseEntity<>( userService.save(userDto),HttpStatus.CREATED);
