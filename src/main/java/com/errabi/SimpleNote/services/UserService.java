@@ -63,6 +63,16 @@ public class UserService {
       /*List<UserDto> userDtos =   userRepository.findAll().stream()
                                                           .map(e->userMapper.toDto(e))
                                                           .collect(Collectors.toList());*/
-       return users ;
+       return users;
     }
+
+    public UserDto findByUsername(String username){
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if(optionalUser.isPresent()){
+            return userMapper.toDto(optionalUser.get());
+        }else{
+            throw new RuntimeException("User not found");
+        }
+    }
+
 }
