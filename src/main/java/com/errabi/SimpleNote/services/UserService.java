@@ -41,6 +41,7 @@ public class UserService {
     public UserDto findById(Long id){
       Optional<User> optionalUser =  userRepository.findById(id);
       if(optionalUser.isPresent()){
+          log.info("finding user with id {}",id);
           UserDto dto = userMapper.toDto(optionalUser.get());
           return dto;
       }else{
@@ -63,6 +64,25 @@ public class UserService {
       /*List<UserDto> userDtos =   userRepository.findAll().stream()
                                                           .map(e->userMapper.toDto(e))
                                                           .collect(Collectors.toList());*/
-       return users ;
+       return users;
+    }
+
+    public UserDto findByUsername(String username){
+        log.info("Finding user with username {}",username);
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if(optionalUser.isPresent()){
+            return userMapper.toDto(optionalUser.get());
+        }else{
+            throw new RuntimeException("User not found");
+        }
+    }
+
+    public UserDto updateUser(UserDto userDto) {
+        log.info("Updating user {} ..",userDto);
+        User existingUser = userRepository.findById(userDto.getId())
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userDto.getId()));
+        userMapper.updateFromDto(userDto, existingUser);
+        User updatedUser = userRepository.save(existingUser);
+        return userMapper.toDto(updatedUser);
     }
 }
