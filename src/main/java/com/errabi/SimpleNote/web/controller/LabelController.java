@@ -20,7 +20,7 @@ public class LabelController {
         return new ResponseEntity<>(labelService.create(labelDto), HttpStatus.CREATED);
     }
 
-    @GetMapping("/labels/id/{id}")
+    @GetMapping("/labels/{id}")
     public ResponseEntity<LabelDto> getLabelById(@PathVariable Long id) {
         return new ResponseEntity<>(labelService.findById(id), HttpStatus.OK);
     }
@@ -42,13 +42,13 @@ public class LabelController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/labels/{labelId}/addNote/{noteId}")
+    @PostMapping("/labels/{labelId}/notes/{noteId}")
     public ResponseEntity<Void> addNoteToLabel(@PathVariable Long labelId, @PathVariable Long noteId) {
         labelService.addNoteToLabel(labelId, noteId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/labels/{labelId}/removeNote/{noteId}")
+    @DeleteMapping("/labels/{labelId}/notes/{noteId}")
     public ResponseEntity<Void> removeNoteFromLabel(@PathVariable Long labelId, @PathVariable Long noteId) {
         labelService.removeNoteFromLabel(labelId, noteId);
         return new ResponseEntity<>(HttpStatus.OK);

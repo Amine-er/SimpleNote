@@ -1,6 +1,8 @@
 package com.errabi.SimpleNote.web.controller;
 
+import com.errabi.SimpleNote.services.NoteService;
 import com.errabi.SimpleNote.services.UserService;
+import com.errabi.SimpleNote.web.model.NoteDto;
 import com.errabi.SimpleNote.web.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +16,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    @GetMapping("/users/id/{id}")
+    private final NoteService noteService;
+    @GetMapping("/users/{userId}/notes")
+    public ResponseEntity<List<NoteDto>> getNotesByUserId(@PathVariable Long userId) {
+        List<NoteDto> notes = noteService.findByUserId(userId);
+        return new ResponseEntity<>(notes, HttpStatus.OK);
+    }
+
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         return new ResponseEntity(userService.findById(id), HttpStatus.OK);
     }
