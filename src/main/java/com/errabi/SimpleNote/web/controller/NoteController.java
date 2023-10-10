@@ -15,16 +15,11 @@ import java.util.List;
 public class NoteController {
     private final NoteService noteService;
 
-    @GetMapping("/notes/id/{id}")
+    @GetMapping("/notes/{id}")
     public ResponseEntity<NoteDto> getNoteById(@PathVariable Long id) {
         return new ResponseEntity<>(noteService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/notes/userId/{userId}")
-    public ResponseEntity<List<NoteDto>> getNotesByUserId(@PathVariable Long userId) {
-        List<NoteDto> notes = noteService.findByUserId(userId);
-        return new ResponseEntity<>(notes, HttpStatus.OK);
-    }
 
     @GetMapping("/notes")
     public ResponseEntity<List<NoteDto>> getAllNotes() {
