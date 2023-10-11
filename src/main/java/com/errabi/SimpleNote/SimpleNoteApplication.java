@@ -20,7 +20,7 @@ public class SimpleNoteApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// to convert java object to json or json to java object
-		ObjectMapper mapper = new ObjectMapper();
+		/*ObjectMapper mapper = new ObjectMapper();
 
 		UserDto user =  UserDto.builder()
 				.id(1l)
@@ -32,6 +32,6 @@ public class SimpleNoteApplication implements CommandLineRunner {
 
 		String userDtoJson = mapper.writeValueAsString(user);
 
-		System.out.println("JSON : "+userDtoJson);
+		System.out.println("JSON : "+userDtoJson);*/
 	}
 }
