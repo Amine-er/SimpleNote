@@ -2,6 +2,7 @@ package com.errabi.SimpleNote.services;
 
 import com.errabi.SimpleNote.entities.Note;
 import com.errabi.SimpleNote.entities.User;
+import com.errabi.SimpleNote.exception.TechnicalException;
 import com.errabi.SimpleNote.repositories.NoteRepository;
 import com.errabi.SimpleNote.repositories.UserRepository;
 import com.errabi.SimpleNote.web.mapper.NoteMapper;
@@ -15,6 +16,9 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.errabi.SimpleNote.utils.SimpleNoteConst.NOTE_NOT_FOUND_ERROR_CODE;
+import static com.errabi.SimpleNote.utils.SimpleNoteConst.NOTE_NOT_FOUND_ERROR_DESCRIPTION;
 
 @Service
 @Slf4j
@@ -43,7 +47,8 @@ public class NoteService {
             NoteDto dto = noteMapper.toDto(optionalNote.get());
             return dto;
         }else{
-            throw new RuntimeException("Note not found");
+            log.error("Note not found with id {}",id);
+            throw new TechnicalException(NOTE_NOT_FOUND_ERROR_CODE,NOTE_NOT_FOUND_ERROR_DESCRIPTION);
         }
     }
 
