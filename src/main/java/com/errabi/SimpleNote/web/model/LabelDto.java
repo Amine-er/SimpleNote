@@ -12,6 +12,6 @@ public class LabelDto {
     private Long id;
     private String name;
     private String color;
-    @JsonIgnore
-    private List<NoteDto> notes;
+    private List<Long> noteIds;
+    //private List<NoteDto> notes;
 }

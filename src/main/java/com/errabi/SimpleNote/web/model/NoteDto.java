@@ -14,6 +14,8 @@ public class NoteDto {
     private String title ;
     private String content ;
     private Boolean isArchived ;
-    private List<LabelDto> labels;
-    private List<ReminderDto> reminders;
+    //private List<LabelDto> labels;
+    private List<Long> labelIds;
+    @JsonIgnore
+    private List<Reminder> reminders;
 }
