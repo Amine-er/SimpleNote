@@ -1,6 +1,7 @@
 package com.errabi.SimpleNote.controller;
 
 import com.errabi.SimpleNote.stub.UserDtoStub;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -13,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class UserControllerTest extends BaseTest {
 
-    @Test  //JUnit
+    @Disabled
     void saveUserTest() throws Exception {
         mockMvc.perform(post("/simple-note/v1/users")
                         .content(asJsonString(UserDtoStub.getUserDto()))

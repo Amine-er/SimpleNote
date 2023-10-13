@@ -4,13 +4,16 @@ import com.errabi.SimpleNote.services.NoteService;
 import com.errabi.SimpleNote.services.UserService;
 import com.errabi.SimpleNote.web.model.NoteDto;
 import com.errabi.SimpleNote.web.model.UserDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@Tag(name = "Users Management")
 @RestController
 @RequestMapping("/simple-note/v1/")
 @RequiredArgsConstructor
@@ -40,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto){
          return new ResponseEntity<>( userService.save(userDto),HttpStatus.CREATED);
     }
 
