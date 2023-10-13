@@ -7,15 +7,13 @@ import com.errabi.SimpleNote.web.mapper.UserMapper;
 import com.errabi.SimpleNote.web.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import static com.errabi.SimpleNote.utils.SimpleNoteConst.*;
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 
 @Slf4j
 @Service
@@ -70,9 +68,7 @@ public class UserService {
     public List<UserDto> findAll(){
        log.info("Finding all users ...");
        List<UserDto> users = new ArrayList<>();
-       userRepository.findAll().forEach(element->{
-           users.add(userMapper.toDto(element));
-       });
+       userRepository.findAll().forEach(element-> users.add(userMapper.toDto(element)));
 
        if (users.isEmpty()) {
            log.warn("No users found in the database.");
