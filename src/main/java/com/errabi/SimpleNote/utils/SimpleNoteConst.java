@@ -51,4 +51,6 @@ public final class SimpleNoteConst {
 
     public static String LABEL_DELETE_ERROR_CODE = "99990";
     public static String LABEL_DELETE_ERROR_DESCRIPTION = "Error deleting the label";
+
+    public static String BEAN_VALIDATION_ERROR_CODE="90000";
 }
