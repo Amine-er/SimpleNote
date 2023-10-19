@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import static com.errabi.simplenote.utils.SimpleNoteConst.*;
@@ -18,9 +19,9 @@ import static com.errabi.simplenote.utils.SimpleNoteConst.*;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
     private final UserRepository userRepository ;
     private final UserMapper userMapper ;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder ;
 
     public void deleteById(Long id){
         findById(id);
@@ -36,6 +37,8 @@ public class UserService {
                     USER_ALREADY_EXISTS_ERROR_DESCRIPTION,
                     STATUS_CONFLICT);
         }
+        String hashPassword= bCryptPasswordEncoder.encode(dto.getPassword());
+        dto.setPassword(hashPassword);
         User user = userMapper.toEntity(dto);
         userRepository.save(user);
        return dto ;

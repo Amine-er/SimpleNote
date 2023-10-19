@@ -25,5 +25,6 @@ public class User {
     private List<Label> labels;
     @Version
     protected Long version;
+    protected boolean disabled ;
 
 }
