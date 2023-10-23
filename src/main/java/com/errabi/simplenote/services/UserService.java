@@ -4,12 +4,14 @@ import com.errabi.simplenote.entities.User;
 import com.errabi.simplenote.exception.TechnicalException;
 import com.errabi.simplenote.repositories.UserRepository;
 import com.errabi.simplenote.web.mapper.UserMapper;
+import com.errabi.simplenote.web.model.AuthDto;
 import com.errabi.simplenote.web.model.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
@@ -23,6 +25,17 @@ public class UserService {
     private final UserMapper userMapper ;
     private final BCryptPasswordEncoder bCryptPasswordEncoder ;
 
+    public boolean login(AuthDto dto){
+       Optional<User> user =  userRepository.findByUsername(dto.getUserName());
+       if(user.isPresent()){
+           if(bCryptPasswordEncoder.matches(dto.getPassword(),user.get().getPassword())){
+               return true ;
+           }else{
+               throw new TechnicalException("99999","Invalid username or password ", HttpStatus.UNAUTHORIZED);
+           }
+       }
+        throw new TechnicalException("99999","Invalid username or password ", HttpStatus.UNAUTHORIZED);
+    }
     public void deleteById(Long id){
         findById(id);
         userRepository.deleteById(id);
