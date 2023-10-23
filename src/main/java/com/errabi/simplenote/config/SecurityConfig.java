@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(final WebSecurity web) {
         RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
-                new AntPathRequestMatcher("/login"),
+                new AntPathRequestMatcher("/**"),
                 new AntPathRequestMatcher("/h2-console/**"));
         web.ignoring().requestMatchers(PUBLIC_URLS);
     }

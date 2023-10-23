@@ -2,6 +2,7 @@ package com.errabi.simplenote.web.controller;
 
 import com.errabi.simplenote.services.NoteService;
 import com.errabi.simplenote.services.UserService;
+import com.errabi.simplenote.web.model.AuthDto;
 import com.errabi.simplenote.web.model.NoteDto;
 import com.errabi.simplenote.web.model.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -75,5 +76,10 @@ public class UserController {
             required = true) Long id){
                 userService.deleteById(id);
                 return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody AuthDto dto){
+        return new ResponseEntity<>(userService.login(dto)?HttpStatus.OK:HttpStatus.UNAUTHORIZED);
     }
 }
